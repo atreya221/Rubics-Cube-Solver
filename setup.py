@@ -1,4 +1,5 @@
 import os
+os.system('sudo apt-get install python3-venv')
 os.system('python3 -m pip install --upgrade pip')
 os.system('python3 -m pip install virtualenv')
 os.system('python3 -m venv .env')
