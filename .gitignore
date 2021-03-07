@@ -2,3 +2,5 @@ v0/
 .vscode/
 .env/
 .ipynb_checkpoints/
+__pycache__/
+*.avi
