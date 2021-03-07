@@ -12,5 +12,5 @@ if platform.system() == 'Windows':
   os.system('python -m pip install --upgrade pip')
   os.system('python -m pip install virtualenv')
   os.system('python -m venv .env')
-  os.system('.\.env\Scripts\\activate & pip install --upgrade pip setuptools wheel')
+  os.system('.\.env\Scripts\\activate & pip install --upgrade setuptools wheel')
   os.system('.\.env\Scripts\\activate & pip install -r requirements.txt')
