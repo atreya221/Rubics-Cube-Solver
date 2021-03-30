@@ -9,8 +9,8 @@ def scan_face(frame):
     BW_image = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 
     patch = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(2,2))
-    BW_image = cv2.morphologyEx(BW_image, cv2.MORPH_OPEN, patch)
-    BW_image = cv2.morphologyEx(BW_image, cv2.MORPH_CLOSE, patch)
+    #BW_image = cv2.morphologyEx(BW_image, cv2.MORPH_OPEN, patch)
+    #BW_image = cv2.morphologyEx(BW_image, cv2.MORPH_CLOSE, patch)
 
     BW_image = cv2.adaptiveThreshold(BW_image,20,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV,5,0)
     #cv2.imwidthrite()
@@ -58,22 +58,22 @@ def scan_face(frame):
         #print(specs_list)
         for i in range(9):
             #print(specs_list[i]) 
-            if specs_list[i][0] > 120 and specs_list[i][1] > 120 and specs_list[i][2] > 100:
+            if specs_list[i][0] > 150 and specs_list[i][1] > 120 and specs_list[i][2] > 120: #WHITE
                 specs_list[i][3] = 1
                 face[i] = 1
-            elif specs_list[i][0] < 100 and specs_list[i][1] > 120 and specs_list[i][2] > 120 and np.abs(specs_list[i][1]-specs_list[i][2])<30:
+            elif specs_list[i][0] < 150 and specs_list[i][1] > 180 and specs_list[i][2] > 120: #YELLOW
                 specs_list[i][3] = 2
                 face[i] = 2
-            elif specs_list[i][0] > specs_list[i][1] and specs_list[i][1] > specs_list[i][2]:
+            elif specs_list[i][0] < 140 and specs_list[i][0] < 100 and specs_list[i][2] > 200: #ORANGE
                 specs_list[i][3] = 3
                 face[i] = 3
-            elif specs_list[i][1] > specs_list[i][0] and specs_list[i][1] > specs_list[i][2] and np.abs(specs_list[i][0] - specs_list[i][2]) < 30:
+            elif specs_list[i][0] > 120 and specs_list[i][1] < 120 and specs_list[i][2] < 120: #BLUE
                 specs_list[i][3] = 4
                 face[i] = 4
-            elif specs_list[i][2] > specs_list[i][0] and specs_list[i][2] > specs_list[i][1] and np.abs(specs_list[i][0] - specs_list[i][1]) < 30 and specs_list[i][0] < 80:
+            elif specs_list[i][0] < 120 and specs_list[i][1] < 200 and specs_list[i][2] > 200: #RED
                 specs_list[i][3] = 5
                 face[i] = 5
-            elif specs_list[i][1] < specs_list[i][2] and specs_list[i][0] < specs_list[i][1] and specs_list[i][2] > 120:
+            elif specs_list[i][0] < 120 and specs_list[i][1] > 120 and specs_list[i][2] < 120: #GREEN
                 specs_list[i][3] = 6
                 face[i] = 6
         #print(face)
