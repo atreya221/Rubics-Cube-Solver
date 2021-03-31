@@ -41,7 +41,10 @@ def scan_face(frame):
                 #cv2.rectangle(frame, (x, y), (x + width, y + height), (0, 255, 255), 2)
                 #cv2.imshowidth('cutted contour', frame[y:y + height, x:x + width])
                 sorting_parameter = (50*y) + (10*x)
-                specs = np.array(cv2.mean(frame[y:y+height,x:x+width])).astype(int)
+                #specs = np.array(cv2.mean(frame[y:y+height,x:x+width])).astype(int)
+                specs = frame[y+ int(height/2),x+ int(width/2)]
+                specs = np.append(specs,0)
+                
                 cv2.drawContours(frame,[contour],0,(255, 255, 0),2)
                 cv2.drawContours(frame, [approx], 0, (255, 255, 0), 2)
                 specs = np.append(specs, sorting_parameter)
@@ -64,13 +67,13 @@ def scan_face(frame):
             elif specs_list[i][0] < 150 and specs_list[i][1] > 180 and specs_list[i][2] > 120: #YELLOW
                 specs_list[i][3] = 2
                 face[i] = 2
-            elif specs_list[i][0] < 140 and specs_list[i][0] < 100 and specs_list[i][2] > 200: #ORANGE
+            elif specs_list[i][0] < 50 and specs_list[i][0] < 140 and specs_list[i][2] > 200: #ORANGE
                 specs_list[i][3] = 3
                 face[i] = 3
             elif specs_list[i][0] > 120 and specs_list[i][1] < 120 and specs_list[i][2] < 120: #BLUE
                 specs_list[i][3] = 4
                 face[i] = 4
-            elif specs_list[i][0] < 120 and specs_list[i][1] < 200 and specs_list[i][2] > 200: #RED
+            elif specs_list[i][0] < 120 and specs_list[i][1] < 100 and specs_list[i][2] > 200: #RED
                 specs_list[i][3] = 5
                 face[i] = 5
             elif specs_list[i][0] < 120 and specs_list[i][1] > 120 and specs_list[i][2] < 120: #GREEN
