@@ -4,6 +4,8 @@ import numpy as np
 from scipy import stats
 from datetime import datetime
 
+from . import scan_face
+
 def cw_rotate(face):
     result = np.zeros_like(face)
     result[0, 0] = face[0, 6]
@@ -233,7 +235,7 @@ def acw_left(output,outputWriter,UF,RF,FF,DF,LF,BF):
     UF[0, 3] = temp[0, 3]
     UF[0, 0] = temp[0, 0]
     
-    LF = rotate_ccw(LF)
+    LF = acw_rotate(LF)
     #FF = temp
 
     print(FF)
@@ -725,7 +727,7 @@ def ccw_front(output,outputWriter,UF,RF,FF,DF,LF,BF):
     temp2 = FF
     if np.array_equal(temp2,temp1) == True:
         [UF, RF, FF, DF, LF, BF] = right_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
-        [UF, RF, FF, DF, LF, BF] = ccw_left(output, outputWriter, UF, RF, FF, DF, LF, BF)
+        [UF, RF, FF, DF, LF, BF] = acw_left(output, outputWriter, UF, RF, FF, DF, LF, BF)
         [UF, RF, FF, DF, LF, BF] = left_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
         return UF,RF,FF,DF,LF,BF
     UF[0, 6] = RF[0, 0]
@@ -796,7 +798,7 @@ def ccw_front(output,outputWriter,UF,RF,FF,DF,LF,BF):
             break
 
 
-def cw_back(video,videoWriter,UF,RF,FF,DF,LF,BF):
+def cw_back(output,outputWriter,UF,RF,FF,DF,LF,BF):
     print("Next Move: B Clockwise")
     temp = np.copy(UF)
     UF[0, 0] = RF[0, 2]
@@ -846,7 +848,7 @@ def cw_back(video,videoWriter,UF,RF,FF,DF,LF,BF):
             break
 
 
-def acw_back(video,videoWriter,UF,RF,FF,DF,LF,BF):
+def acw_back(output,outputWriter,UF,RF,FF,DF,LF,BF):
     print("Next Move: B CounterClockwise")
     temp = UF
     UF[0, 2] = LF[0, 0]
