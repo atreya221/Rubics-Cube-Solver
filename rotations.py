@@ -4,7 +4,7 @@ import numpy as np
 from scipy import stats
 from datetime import datetime
 
-from . import scan_face
+import scan_face
 
 def cw_rotate(face):
     result = np.zeros_like(face)

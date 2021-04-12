@@ -186,6 +186,162 @@ def main():
             print(midback)
 
             unsolved_cube = concat(UF,RF,FF,DF,LF,BF)
+            #print(unsolved_cube)
+            solved_cube = [midup, midup, midup, midup, midup, midup, midup, midup, midup, midright, midright, midright, midright, midright, midright, midright, midright, midright, midfront, midfront, midfront, midfront, midfront,
+                           midfront, midfront, midfront, midfront, middown, middown, middown, middown, middown, middown, middown, middown, middown, midleft, midleft, midleft, midleft, midleft, midleft, midleft, midleft, midleft, midback,
+                           midback, midback, midback, midback, midback, midback, midback, midback]
+            if (concat(UF, RF, FF, DF, LF, BF) == solved_cube).all():
+                # print("CUBE IS SOLVED")
+                ok, frame = output.read()
+                frame = cv2.putText(frame, "Cube is solved", (40, 40), cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 0, 255), 4)
+                outputWriter.write(frame)
+                cv2.imshow("Video Output", frame)
+                key_pressed = cv2.waitKey(1) & 0xFF
+                if key_pressed == 27 or key_pressed == ord('q'):
+                    break
+                time.sleep(5)
+                break
+
+            unsolved_str = ''
+            for i in range(len(unsolved_cube)):
+                if unsolved_cube[i] == midfront:
+                    unsolved_str = unsolved_str + 'F'
+                elif unsolved_cube[i] == midright:
+                    unsolved_str = unsolved_str + 'R'
+                elif unsolved_cube[i] == midback:
+                    unsolved_str = unsolved_str + 'B'
+                elif unsolved_cube[i] == midleft:
+                    unsolved_str = unsolved_str + 'L'
+                elif unsolved_cube[i] == midup:
+                    unsolved_str = unsolved_str + 'U'
+                elif unsolved_cube[i] == middown:
+                    unsolved_str = unsolved_str + 'D'
+
+            print(unsolved_str)
+            try:
+                solved_str = kociemba.solve(unsolved_str)
+                print(solved_str)
+                break
+            except:
+                UF = [0, 0]
+                FF = [0, 0]
+                LF = [0, 0]
+                RF = [0, 0]
+                DF = [0, 0]
+                BF = [0, 0]
+
+        if flag == 1:
+            break
+        instructions = solved_str.split()
+        for instruction in instructions:
+            if instruction == "R":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_right(output,outputWriter,UF,RF,FF,DF,LF,BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "R'":
+                [UF, RF, FF, DF, LF, BF] = rotations.ccw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "R2":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "L":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_left(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "L'":
+                [UF, RF, FF, DF, LF, BF] = rotations.ccw_left(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "L2":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_left(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_left(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "F":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_front(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "F'":
+                [UF, RF, FF, DF, LF, BF] = rotations.ccw_front(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "F2":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_front(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_front(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "B":
+                [UF, RF, FF, DF, LF, BF] = rotations.right_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.left_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "B'":
+                #print(UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.right_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.ccw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.left_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
+            elif instruction == "B2":
+                [UF, RF, FF, DF, LF, BF] = rotations.right_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_right(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.left_turn(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "U":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_up(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "U'":
+                [UF, RF, FF, DF, LF, BF] = rotations.ccw_up(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "U2":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_up(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_up(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "D":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_down(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "D'":
+                [UF, RF, FF, DF, LF, BF] = rotations.ccw_down(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+            elif instruction == "D2":
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_down(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                [UF, RF, FF, DF, LF, BF] = rotations.cw_down(output, outputWriter, UF, RF, FF, DF, LF, BF)
+                #print(concat(UF, RF, FF, DF, LF, BF))
+
+        solved_cube = [midup, midup, midup, midup, midup, midup, midup, midup, midup, midright, midright, midright, midright, midright, midright, midright, midright, midright, midfront, midfront, midfront, midfront, midfront, midfront, midfront, midfront, midfront, middown, middown, middown, middown, middown, middown, middown, middown, middown, midleft, midleft, midleft, midleft, midleft, midleft, midleft, midleft, midleft, midback, midback, midback, midback, midback, midback, midback, midback, midback]
+        if (concat(UF, RF, FF, DF, LF, BF) == solved_cube).all():
+            #print("CUBE IS SOLVED")
+            ok, frame = output.read()
+            frame = cv2.putText(frame, "THE CUBE IS SOLVED", (40, 40), cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 0, 255), 4)
+
+            outputWriter.write(frame)
+            cv2.imshow("Video Output", frame)
+            key_pressed = cv2.waitKey(1) & 0xFF
+            if key_pressed == 27 or key_pressed == ord('q'):
+                sys.exit()
+            begin_time = datetime.now()
+            while True:
+                if (datetime.now() - begin_time).total_seconds() > 5:
+                    break
+                else:
+                    ok, frame = output.read()
+                    if not ok:
+                        flag = 1
+                        break
+                    frame = cv2.putText(frame, "THE CUBE IS SOLVED", (40, 40), cv2.FONT_HERSHEY_TRIPLEX, 2, (255, 0, 255), 4)
+                    outputWriter.write(frame)
+                    cv2.imshow("Video Output", frame)
+                    key_pressed = cv2.waitKey(1) & 0xFF
+                    if key_pressed == 27 or key_pressed == ord('q'):
+                        flag = 1
+                        break
+            if flag == 1:
+                sys.exit()
+            break
+        #print(FF)
+        #print(UF)
+
+        outputWriter.write(frame)
+        cv2.imshow("Video Output", frame)
+        # print(count)
+        # print(blob_color)
+        # print(face)
+        key_pressed = cv2.waitKey(1) & 0xFF
+        if key_pressed == 27 or key_pressed == ord('q'):
+            sys.exit()
 
 if __name__ == "__main__":
     main()
