@@ -22,3 +22,14 @@ In order to install and use the app, you need too have `python3` already install
     ```
     $ . ./.env/bin/activate
     ```
+    
+## User Guide
+    
+   You need to follow the instructions given below in order to solve the cube.
+   
+   1. Decide one of the faces of your cube as a front face, and then mark the top, down, left, right, and back face accordingly.
+   2. Webcam window will first ask you to show the front face. As soon as you show the front face, squares will start getting marked, and when all the 9 squares are marked it         will ask you to show the top face.
+   3. Following similar steps will scan the top, down, right, left, and back face.
+   4. After scanning all the faces correctly, the screen will display the instruction in the form of an arrow and text. 
+   5. Follow the instruction shown on the screen and then show the front face to the screen.
+   6. Keep following the instructions shown on the screen until you see the text "Cube is solved".
