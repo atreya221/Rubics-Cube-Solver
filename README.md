@@ -27,6 +27,7 @@ In order to install and use the app, you need too have `python3` already install
     
    You need to follow the instructions given below in order to solve the cube.
    
+   1. Run the command "python code.py" to run the code. A webcam window will open with a text showing show front face.
    1. Decide one of the faces of your cube as a front face, and then mark the top, down, left, right, and back face accordingly.
    2. Webcam window will first ask you to show the front face. As soon as you show the front face, squares will start getting marked, and when all the 9 squares are marked it         will ask you to show the top face.
    3. Following similar steps will scan the top, down, right, left, and back face.
